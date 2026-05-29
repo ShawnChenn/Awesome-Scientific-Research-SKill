@@ -10,6 +10,9 @@ A Collection of Reliable Skills for facilitating scientific research.
 2. [figures4papers](#2-figures4papers)
 3. [awesome-ai-research-writing](#3-awesome-ai-research-writing)
 4. [nature-skills](#4-nature-skills)
+5. [humanizer](#5-humanizer)
+6. [edit-banana](#6-edit-bananajie-tu-zhuan-ke-bian-ji-drawio)
+7. [ppt-master](#7-ppt-masterwendang-zhuan-ppt)
 
 ---
 
@@ -71,6 +74,83 @@ cp -R research-paper-writing "$HOME/.gemini/skills/"
 - Gemini：`Use research-paper-writing to revise the Experiments section and strengthen ablation discussion.`
 
 > 说明：以上安装命令来自该仓库 README，默认是 Unix shell（macOS/Linux）写法。
+
+---
+
+> **⚠️ 以下为辅助工作工具，非 Skills 插件。** 记录于此供参考，无需安装为 skill，直接按仓库说明使用即可。
+
+---
+
+## 6. Edit Banana（截图转可编辑 Draw.io）
+
+来源仓库：`https://github.com/bit-datalab/edit-banana`
+
+将静态图表（流程图、架构图、科学公式等）转换为可编辑的 Draw.io（XML）格式，支持 1:1 还原布局、颜色、线条样式。
+
+### 安装
+
+```bash
+git clone https://github.com/BIT-DataLab/Edit-Banana.git
+cd Edit-Banana
+pip install -r requirements.txt
+bash scripts/setup_sam3.sh          # 安装 SAM3 分割模型
+sudo apt install tesseract-ocr tesseract-ocr-chi-sim   # OCR 引擎
+cp config/config.yaml.example config/config.yaml
+# 编辑 config.yaml 配置模型路径
+```
+
+### 核心功能
+
+| 功能 | 说明 |
+| :--- | :--- |
+| SAM3 精确分割 | 微调 Segment Anything Model 3 分割图表元素 |
+| 多模态 VLM 引导 | 多轮 VLM 扫描保证高保真重建 |
+| OCR 文字识别 | 本地 Tesseract + Pix2Text 数学公式转 LaTeX |
+| 1:1 样式还原 | 布局、颜色、线条粗细、虚线等全部保留 |
+
+### 使用场景（简要）
+
+- 将论文/报告中截图的流程图、架构图转为 Draw.io 可编辑文件
+- 科学公式图片识别并导出为 LaTeX
+- 技术原理图修复与模板替换
+
+> 在线体验：https://www.editbanana.net/
+
+---
+
+## 7. PPT Master（文档转PPT）
+
+来源仓库：`https://github.com/hugohe3/ppt-master`
+
+支持 PDF、DOCX、URL、Markdown 等文档直接转换为原生可编辑 PPTX（真实 DrawingML 形状，非图片），内置模板复制、动画、TTS 语音旁白、多格式输出。
+
+### 安装
+
+```bash
+git clone https://github.com/hugohe3/ppt-master.git
+cd ppt-master
+pip install -r requirements.txt
+# Windows 用户参考仓库 Windows 安装指南额外配置 PATH
+```
+
+### 核心功能
+
+| 功能 | 说明 |
+| :--- | :--- |
+| 原生可编辑 | 生成的幻灯片为真实 DrawingML 形状，可逐元素编辑 |
+| 多格式输入 | PDF、DOCX、URL、Markdown 直接转 PPT |
+| 模板复制 | 导入任意 .pptx 作为模板，提取布局/颜色/字体 |
+| 实时预览编辑 | localhost:5050 浏览器预览，点击元素标注修改 |
+| 动画与过渡 | 真实 OOXML 动画，自动级联进入 |
+| 语音旁白/克隆 | 支持 ElevenLabs/MiniMax/Qwen/CosyVoice 克隆声音 |
+| 多画布输出 | PPT 16:9、小红书、微信等 10+ 画布格式 |
+
+### 使用场景（简要）
+
+- 论文/报告 PDF 转可编辑幻灯片
+- 品牌模板批量生成（客户/公司现有 PPT 作为模板）
+- 自动生成数据报告、季度总结演示
+- 制作带语音旁白的培训视频
 
 ---
 
@@ -214,4 +294,138 @@ npx openskills install anthropics/skills
 | `nature-data` | Draft | 构建、审核符合 FAIR 原则的数据可用性声明（Data Availability）|
 | `nature-paper2ppt` | Beta | 从论文或阅读笔记自动提取并制作中文 Journal Club PPTX 演示幻灯片 |
 
-> 说明：以上命令与流程基于该仓库 README 的 OpenSkills 教程内容，命令为 Unix shell（macOS/Linux）风格。
+---
+
+## 5. humanizer（去除 AI 写作痕迹）
+
+来源仓库：`https://github.com/blader/humanizer`
+
+该 skill 基于 Wikipedia "Signs of AI writing" 指南，可消除 AI 生成文本的痕迹，使其更自然。
+
+### 安装
+
+```bash
+# Claude Code
+mkdir -p ~/.claude/skills
+git clone https://github.com/blader/humanizer.git ~/.claude/skills/humanizer
+
+# OpenCode（也兼容 ~/.claude/skills/）
+mkdir -p ~/.config/opencode/skills
+git clone https://github.com/blader/humanizer.git ~/.config/opencode/skills/humanizer
+```
+
+### 使用方式
+
+**基础用法：**
+```
+/humanizer
+
+[paste your text here]
+```
+
+**声纹校准（匹配个人写作风格）：**
+```
+/humanizer
+
+Here's a sample of my writing for voice matching:
+[paste 2-3 paragraphs of your own writing]
+
+Now humanize this text:
+[paste AI text to humanize]
+```
+
+### 检测的 30 种 AI 特征模式
+
+| 类别 | 模式数量 | 示例 |
+| :--- | :--- | :--- |
+| 内容模式 | 6 种 | 显著性夸大、名人效应、虚假挑战 |
+| 语言模式 | 7 种 | AI 词汇、回避系动词、规则三 |
+| 风格模式 | 8 种 | 破折号滥用、标题大小写、emoji 使用 |
+| 沟通模式 | 3 种 | 聊天机器人话术、截断免责声明 |
+| 填充词/修饰 | 4 种 | 冗余短语、过度修饰、泛泛结论 |
+
+### 使用场景（简要）
+
+- 将 AI 生成文本转换为自然人类写作风格
+- 个人声纹匹配（提供自己写作样本使输出符合个人习惯）
+- 批量文档/博客/技术文章的 AI 特征检测与修正
+- 团队写作前统一文本风格
+
+> 说明：以上安装命令来自该仓库 README，默认是 Unix shell（macOS/Linux）写法。
+
+---
+
+> **⚠️ 以下为辅助工作工具，非 Skills 插件。** 记录于此供参考，无需安装为 skill，直接按仓库说明使用即可。
+
+---
+
+## 6. Edit Banana（截图转可编辑 Draw.io）
+
+来源仓库：`https://github.com/bit-datalab/edit-banana`
+
+将静态图表（流程图、架构图、科学公式等）转换为可编辑的 Draw.io（XML）格式，支持 1:1 还原布局、颜色、线条样式。
+
+### 安装
+
+```bash
+git clone https://github.com/BIT-DataLab/Edit-Banana.git
+cd Edit-Banana
+pip install -r requirements.txt
+bash scripts/setup_sam3.sh          # 安装 SAM3 分割模型
+sudo apt install tesseract-ocr tesseract-ocr-chi-sim   # OCR 引擎
+cp config/config.yaml.example config/config.yaml
+# 编辑 config.yaml 配置模型路径
+```
+
+### 核心功能
+
+| 功能 | 说明 |
+| :--- | :--- |
+| SAM3 精确分割 | 微调 Segment Anything Model 3 分割图表元素 |
+| 多模态 VLM 引导 | 多轮 VLM 扫描保证高保真重建 |
+| OCR 文字识别 | 本地 Tesseract + Pix2Text 数学公式转 LaTeX |
+| 1:1 样式还原 | 布局、颜色、线条粗细、虚线等全部保留 |
+
+### 使用场景（简要）
+
+- 将论文/报告中截图的流程图、架构图转为 Draw.io 可编辑文件
+- 科学公式图片识别并导出为 LaTeX
+- 技术原理图修复与模板替换
+
+> 在线体验：https://www.editbanana.net/
+
+---
+
+## 7. PPT Master（文档转PPT）
+
+来源仓库：`https://github.com/hugohe3/ppt-master`
+
+支持 PDF、DOCX、URL、Markdown 等文档直接转换为原生可编辑 PPTX（真实 DrawingML 形状，非图片），内置模板复制、动画、TTS 语音旁白、多格式输出。
+
+### 安装
+
+```bash
+git clone https://github.com/hugohe3/ppt-master.git
+cd ppt-master
+pip install -r requirements.txt
+# Windows 用户参考仓库 Windows 安装指南额外配置 PATH
+```
+
+### 核心功能
+
+| 功能 | 说明 |
+| :--- | :--- |
+| 原生可编辑 | 生成的幻灯片为真实 DrawingML 形状，可逐元素编辑 |
+| 多格式输入 | PDF、DOCX、URL、Markdown 直接转 PPT |
+| 模板复制 | 导入任意 .pptx 作为模板，提取布局/颜色/字体 |
+| 实时预览编辑 | localhost:5050 浏览器预览，点击元素标注修改 |
+| 动画与过渡 | 真实 OOXML 动画，自动级联进入 |
+| 语音旁白/克隆 | 支持 ElevenLabs/MiniMax/Qwen/CosyVoice 克隆声音 |
+| 多画布输出 | PPT 16:9、小红书、微信等 10+ 画布格式 |
+
+### 使用场景（简要）
+
+- 论文/报告 PDF 转可编辑幻灯片
+- 品牌模板批量生成（客户/公司现有 PPT 作为模板）
+- 自动生成数据报告、季度总结演示
+- 制作带语音旁白的培训视频
