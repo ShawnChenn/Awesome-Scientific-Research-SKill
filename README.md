@@ -11,8 +11,9 @@ A Collection of Reliable Skills for facilitating scientific research.
 3. [awesome-ai-research-writing](#3-awesome-ai-research-writing)
 4. [nature-skills](#4-nature-skills)
 5. [humanizer](#5-humanizer)
-6. [edit-banana](#6-edit-bananajie-tu-zhuan-ke-bian-ji-drawio)
-7. [ppt-master](#7-ppt-masterwendang-zhuan-ppt)
+6. [gpt-image-2-skill](#6-gpt-image-2-skill)
+7. [edit-banana](#7-edit-bananajie-tu-zhuan-ke-bian-ji-drawio)
+8. [ppt-master](#8-ppt-masterwendang-zhuan-ppt)
 
 ---
 
@@ -74,83 +75,6 @@ cp -R research-paper-writing "$HOME/.gemini/skills/"
 - Gemini：`Use research-paper-writing to revise the Experiments section and strengthen ablation discussion.`
 
 > 说明：以上安装命令来自该仓库 README，默认是 Unix shell（macOS/Linux）写法。
-
----
-
-> **⚠️ 以下为辅助工作工具，非 Skills 插件。** 记录于此供参考，无需安装为 skill，直接按仓库说明使用即可。
-
----
-
-## 6. Edit Banana（截图转可编辑 Draw.io）
-
-来源仓库：`https://github.com/bit-datalab/edit-banana`
-
-将静态图表（流程图、架构图、科学公式等）转换为可编辑的 Draw.io（XML）格式，支持 1:1 还原布局、颜色、线条样式。
-
-### 安装
-
-```bash
-git clone https://github.com/BIT-DataLab/Edit-Banana.git
-cd Edit-Banana
-pip install -r requirements.txt
-bash scripts/setup_sam3.sh          # 安装 SAM3 分割模型
-sudo apt install tesseract-ocr tesseract-ocr-chi-sim   # OCR 引擎
-cp config/config.yaml.example config/config.yaml
-# 编辑 config.yaml 配置模型路径
-```
-
-### 核心功能
-
-| 功能 | 说明 |
-| :--- | :--- |
-| SAM3 精确分割 | 微调 Segment Anything Model 3 分割图表元素 |
-| 多模态 VLM 引导 | 多轮 VLM 扫描保证高保真重建 |
-| OCR 文字识别 | 本地 Tesseract + Pix2Text 数学公式转 LaTeX |
-| 1:1 样式还原 | 布局、颜色、线条粗细、虚线等全部保留 |
-
-### 使用场景（简要）
-
-- 将论文/报告中截图的流程图、架构图转为 Draw.io 可编辑文件
-- 科学公式图片识别并导出为 LaTeX
-- 技术原理图修复与模板替换
-
-> 在线体验：https://www.editbanana.net/
-
----
-
-## 7. PPT Master（文档转PPT）
-
-来源仓库：`https://github.com/hugohe3/ppt-master`
-
-支持 PDF、DOCX、URL、Markdown 等文档直接转换为原生可编辑 PPTX（真实 DrawingML 形状，非图片），内置模板复制、动画、TTS 语音旁白、多格式输出。
-
-### 安装
-
-```bash
-git clone https://github.com/hugohe3/ppt-master.git
-cd ppt-master
-pip install -r requirements.txt
-# Windows 用户参考仓库 Windows 安装指南额外配置 PATH
-```
-
-### 核心功能
-
-| 功能 | 说明 |
-| :--- | :--- |
-| 原生可编辑 | 生成的幻灯片为真实 DrawingML 形状，可逐元素编辑 |
-| 多格式输入 | PDF、DOCX、URL、Markdown 直接转 PPT |
-| 模板复制 | 导入任意 .pptx 作为模板，提取布局/颜色/字体 |
-| 实时预览编辑 | localhost:5050 浏览器预览，点击元素标注修改 |
-| 动画与过渡 | 真实 OOXML 动画，自动级联进入 |
-| 语音旁白/克隆 | 支持 ElevenLabs/MiniMax/Qwen/CosyVoice 克隆声音 |
-| 多画布输出 | PPT 16:9、小红书、微信等 10+ 画布格式 |
-
-### 使用场景（简要）
-
-- 论文/报告 PDF 转可编辑幻灯片
-- 品牌模板批量生成（客户/公司现有 PPT 作为模板）
-- 自动生成数据报告、季度总结演示
-- 制作带语音旁白的培训视频
 
 ---
 
@@ -355,11 +279,73 @@ Now humanize this text:
 
 ---
 
+## 6. GPT-Image-2-Skill（AI 图像生成 Skill + 提示词画廊）
+
+来源仓库：`https://github.com/wuyoscar/gpt_image_2_skill`
+
+OpenAI GPT Image 2 的提示词画廊 + 智能体技能 + CLI 工具三合一，覆盖 20+ 类别（科研论文配图、UI 模拟、摄影修图、动漫漫画、品牌设计等）。
+
+### 安装
+
+**Claude Code（插件市场，最简推荐）：**
+```bash
+/plugin marketplace add wuyoscar/gpt_image_2_skill
+/plugin install gpt-image@wuyoscar-skills
+```
+
+**Codex：**
+```bash
+# 方式 A：使用内置安装器，输入技能文件夹 URL
+# https://github.com/wuyoscar/gpt_image_2_skill/tree/main/skills/gpt-image
+
+# 方式 B：手动复制
+mkdir -p ~/.codex/skills
+cp -R skills/gpt-image ~/.codex/skills/
+```
+
+**跨平台（npx）：**
+```bash
+npx --yes skills@latest add wuyoscar/gpt_image_2_skill --skill gpt-image --agent codex --copy
+npx --yes skills@latest add wuyoscar/gpt_image_2_skill --skill gpt-image --agent openclaw --copy
+```
+
+**CLI 独立使用：**
+```bash
+# 直接运行
+uvx --from git+https://github.com/wuyoscar/gpt_image_2_skill gpt-image -p "a cat astronaut"
+
+# 或安装到 PATH
+uv tool install git+https://github.com/wuyoscar/gpt_image_2_skill
+gpt-image -p "a cat astronaut"
+```
+
+> API Key 读取顺序：环境变量 `OPENAI_API_KEY` → `.env` → `~/.env`
+
+### 核心功能
+
+| 功能 | 说明 |
+| :--- | :--- |
+| 文本→图像 | `gpt-image-2` 模型生成 |
+| 文本+参考图→图像 | 支持多参考图输入编辑 |
+| 遮罩修复（Inpaint） | 不透明区域保留，透明区域重新生成 |
+| 提示词画廊 | 20+ 类别精选提示词（科研图、UI、动漫、摄影等） |
+| CLI 工具 | 命令行直接生图，支持 size/quality/background 等参数 |
+
+### 使用场景（简要）
+
+- 科研论文配图（架构图、热力图、桑基图、缩放定律图等，Nature/NeurIPS 风格）
+- UI/UX 设计稿、移动端 App 模拟
+- 海报与排版（杂志封面、宣传海报）
+- 参考图风格迁移、遮罩修复、多图融合编辑
+- 品牌识别系统展示板
+
+---
+
 > **⚠️ 以下为辅助工作工具，非 Skills 插件。** 记录于此供参考，无需安装为 skill，直接按仓库说明使用即可。
 
 ---
 
-## 6. Edit Banana（截图转可编辑 Draw.io）
+## 7. Edit Banana（截图转可编辑 Draw.io）
 
 来源仓库：`https://github.com/bit-datalab/edit-banana`
 
@@ -396,7 +382,7 @@ cp config/config.yaml.example config/config.yaml
 
 ---
 
-## 7. PPT Master（文档转PPT）
+## 8. PPT Master（文档转PPT）
 
 来源仓库：`https://github.com/hugohe3/ppt-master`
 
