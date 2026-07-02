@@ -1,0 +1,4 @@
+interface:
+  display_name: "Draw.io Diagram Builder"
+  short_description: "Editable diagrams.net / draw.io figures"
+  default_prompt: "Use $drawio-diagram-builder to create an editable publication-style draw.io diagram."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Figure Prompt Handbook"
+  short_description: "Research figure prompt design handbook"
+  default_prompt: "Use $ai-figure-prompt-handbook to design a publication-quality research figure prompt."

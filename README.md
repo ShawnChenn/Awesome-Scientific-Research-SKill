@@ -14,6 +14,9 @@ A Collection of Reliable Skills for facilitating scientific research.
 6. [gpt-image-2-skill](#6-gpt-image-2-skill)
 7. [edit-banana](#7-edit-bananajie-tu-zhuan-ke-bian-ji-drawio)
 8. [ppt-master](#8-ppt-masterwendang-zhuan-ppt)
+9. [ai-figure-prompt-handbook](#9-ai-figure-prompt-handbookke-yan-tu-ti-shi-ci-shou-ce)
+10. [drawio-diagram-builder](#10-drawio-diagram-builder-drawio-tu-gou-jian-qi)
+11. [research-media-card](#11-research-media-cardke-yan-mei-ti-ka-pian)
 
 ---
 
@@ -415,3 +418,161 @@ pip install -r requirements.txt
 - 品牌模板批量生成（客户/公司现有 PPT 作为模板）
 - 自动生成数据报告、季度总结演示
 - 制作带语音旁白的培训视频
+
+---
+
+## 9. ai-figure-prompt-handbook（科研图提示词手册）
+
+来源：本地自建 skill（`~/.codex/skills/ai-figure-prompt-handbook/`）
+
+为学术论文设计 publication-quality 图片提供标准化提示词模板与视觉规范。覆盖 framework、motivation、comparison、pipeline、poster、media card 等多种图类型。
+
+### 1) Codex
+
+```bash
+mkdir -p ~/.codex/skills
+cp -R ai-figure-prompt-handbook ~/.codex/skills/
+```
+
+### 2) Claude Code
+
+```bash
+mkdir -p ~/.claude/skills
+cp -R ai-figure-prompt-handbook ~/.claude/skills/
+```
+
+### 3) Gemini
+
+```bash
+mkdir -p ~/.gemini/skills
+cp -R ai-figure-prompt-handbook ~/.gemini/skills/
+```
+
+### 核心功能
+
+| 功能 | 说明 |
+| :--- | :--- |
+| 图类型自动识别 | 根据用户请求自动匹配 figure type（framework / motivation / comparison / pipeline / poster 等）|
+| 标准化提示词输出 | 输出包含 Figure Prompt、Layout Notes、Text Labels、Style Constraints 四段式结构 |
+| 视觉规范体系 | 内置 Color System、Icon Library、Layout Patterns、Typography、Prompt Templates 五套参考资产 |
+| draw.io 联动 | 对 paper framework / motivation / comparison / pipeline 图默认生成可编辑 `.drawio` 文件 |
+| 参考样例库 | 包含 motivation-comparison、pipeline-framework、architecture、poster 等多组样例图片 |
+
+### 使用场景（简要）
+
+- 论文 framework / motivation / comparison / pipeline 图的提示词设计
+- 学术 poster 与 research media card 的视觉规范制定
+- 为 AI 图像工具（DALL-E、Midjourney 等）生成精准的学术图提示词
+
+示例提示词：
+
+- Codex：`Use ai-figure-prompt-handbook to design a motivation figure for my paper on federated learning.`
+- Claude Code：`Please use ai-figure-prompt-handbook to create a comparison figure for my paper.`
+- Gemini：`Use ai-figure-prompt-handbook to generate a pipeline figure prompt for my training method.`
+
+> 说明：本 skill 为本地自建，目录内包含 `references/samples/` 参考样例图片。
+
+---
+
+## 10. drawio-diagram-builder（Draw.io 图构建器）
+
+来源：本地自建 skill（`~/.codex/skills/drawio-diagram-builder/`）
+
+通过直接编写 draw.io XML 创建、编辑和迭代科研图表，支持从参考图复现到高保真架构图的全流程。
+
+### 1) Codex
+
+```bash
+mkdir -p ~/.codex/skills
+cp -R drawio-diagram-builder ~/.codex/skills/
+```
+
+### 2) Claude Code
+
+```bash
+mkdir -p ~/.claude/skills
+cp -R drawio-diagram-builder ~/.claude/skills/
+```
+
+### 3) Gemini
+
+```bash
+mkdir -p ~/.gemini/skills
+cp -R drawio-diagram-builder ~/.gemini/skills/
+```
+
+### 核心功能
+
+| 功能 | 说明 |
+| :--- | :--- |
+| XML 直接建模 | 直接编写 `.drawio` XML，精确控制 mxGeometry 位置与样式 |
+| 参考图复现 | 从截图/参考图出发，通过坐标清点 → 布局网格 → 资产清单 → 缺陷日志四步流程复现 |
+| 迭代式修正 | 渲染截图 → 检查缺陷 → 批量修正 → 重复直到图表干净 |
+| 科研风格 | 支持 publication-style 输出，保持可编辑性 |
+
+### 使用场景（简要）
+
+- 论文方法图、架构图、流程图的 draw.io 可编辑版本
+- 参考已有论文图的精确复现
+- 文字溢出、箭头、间距、图标、对齐等问题的迭代修复
+
+示例提示词：
+
+- Codex：`Use drawio-diagram-builder to create a system architecture diagram for my paper.`
+- Claude Code：`Please use drawio-diagram-builder to replicate this reference figure as an editable draw.io file.`
+- Gemini：`Use drawio-diagram-builder to fix the text overflow and alignment issues in my diagram.`
+
+> 说明：本 skill 为本地自建。目录内 `references/samples/` 用于存放 draw.io 输出截图样例，用户可自行添加参考图。
+
+---
+
+## 11. research-media-card（科研媒体卡片）
+
+来源：本地自建 skill（`~/.codex/skills/research-media-card/`）
+
+将论文转化为面向大众的 editorial 风格信息图卡片，不直接绘制 pipeline，而是用视觉故事传递科研成果。
+
+### 1) Codex
+
+```bash
+mkdir -p ~/.codex/skills
+cp -R research-media-card ~/.codex/skills/
+```
+
+### 2) Claude Code
+
+```bash
+mkdir -p ~/.claude/skills
+cp -R research-media-card ~/.claude/skills/
+```
+
+### 3) Gemini
+
+```bash
+mkdir -p ~/.gemini/skills
+cp -R research-media-card ~/.gemini/skills/
+```
+
+### 核心功能
+
+| 功能 | 说明 |
+| :--- | :--- |
+| 视觉叙事 | 将论文重新组织为 5-8 张卡片的完整故事线（title → takeaway → background → insight → method → evidence）|
+| 非专业读者友好 | 面向 broad audience，10-20 秒内传达核心 idea |
+| 卡片式编辑布局 | 温暖、现代、杂志风美学，柔和语义色、留白图标、短标签 |
+| 内置参考资产 | Layout Patterns、Color System、Icon Library、Typography、Prompt Templates |
+| 示例样例 | 包含 research-media-card-01/02 参考样例图片 |
+
+### 使用场景（简要）
+
+- 论文的社交媒体传播卡片（Twitter / 微信 / 小红书等）
+- 科研成果的大众传播信息图
+- Journal Club / 学术分享的 teaser card
+
+示例提示词：
+
+- Codex：`Use research-media-card to create a media card for my paper on large language model reasoning.`
+- Claude Code：`Please use research-media-card to design a science communication card for my federated learning paper.`
+- Gemini：`Use research-media-card to translate my paper into a visual story card.`
+
+> 说明：本 skill 为本地自建，目录内包含 `references/examples/` 参考样例图片。
