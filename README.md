@@ -441,13 +441,6 @@ mkdir -p ~/.claude/skills
 cp -R ai-figure-prompt-handbook ~/.claude/skills/
 ```
 
-### 3) Gemini
-
-```bash
-mkdir -p ~/.gemini/skills
-cp -R ai-figure-prompt-handbook ~/.gemini/skills/
-```
-
 ### 核心功能
 
 | 功能 | 说明 |
@@ -494,13 +487,6 @@ mkdir -p ~/.claude/skills
 cp -R drawio-diagram-builder ~/.claude/skills/
 ```
 
-### 3) Gemini
-
-```bash
-mkdir -p ~/.gemini/skills
-cp -R drawio-diagram-builder ~/.gemini/skills/
-```
-
 ### 核心功能
 
 | 功能 | 说明 |
@@ -544,13 +530,6 @@ cp -R research-media-card ~/.codex/skills/
 ```bash
 mkdir -p ~/.claude/skills
 cp -R research-media-card ~/.claude/skills/
-```
-
-### 3) Gemini
-
-```bash
-mkdir -p ~/.gemini/skills
-cp -R research-media-card ~/.gemini/skills/
 ```
 
 ### 核心功能
