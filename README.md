@@ -563,7 +563,7 @@ pip install -r requirements.txt
 
 ---
 
-## 9. ai-figure-prompt-handbook（科研图提示词手册）
+## 11. ai-figure-prompt-handbook（科研图提示词手册）
 
 来源：本地自建 skill（`~/.codex/skills/ai-figure-prompt-handbook/`）
 
@@ -609,7 +609,7 @@ cp -R ai-figure-prompt-handbook ~/.claude/skills/
 
 ---
 
-## 10. drawio-diagram-builder（Draw.io 图构建器）
+## 12. drawio-diagram-builder（Draw.io 图构建器）
 
 来源：本地自建 skill（`~/.codex/skills/drawio-diagram-builder/`）
 
@@ -654,7 +654,7 @@ cp -R drawio-diagram-builder ~/.claude/skills/
 
 ---
 
-## 11. research-media-card（科研媒体卡片）
+## 13. research-media-card（科研媒体卡片）
 
 来源：本地自建 skill（`~/.codex/skills/research-media-card/`）
 
