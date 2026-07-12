@@ -30,3 +30,53 @@
 | **承认局限** | limitation_scope 中的边界问题 | "当前版本仅测试了 Z 场景" |
 
 > 分类时先定类型 → 再判严重性 → 最后给建议动作。三者不绑定（高严重性不一定必须补实验）。
+
+---
+
+## 扩展关注点类型（v2 增强版）
+
+> 来源：wanshuiyin/Auto-claude-code-research-in-sleep
+> 在原 8 类基础上扩展 2 类，合计 10 类。原有 8 类保持不变，向后兼容。
+
+| 新增类型 | 标签 | 关键词 | 与原类型对应 |
+| :--- | :--- | :--- | :--- |
+| **Theorem Rigor** | 定理严谨性 | 定理假设过强、证明缺步骤、上界/下界论证 | （新增，原归 technical_clarity） |
+| **Complexity** | 复杂度/可扩展性 | 推理 / 训练 / 内存复杂度、是否能扩展到大规模 | （新增，原归 significance） |
+
+**合并后的 10 类完整列表**：
+
+1. Novelty
+2. Technical Clarity
+3. Experimental Support
+4. Evaluation Fairness
+5. Significance
+6. Positioning
+7. Limitation Scope
+8. Writing Structure
+9. **Theorem Rigor** 🆕
+10. **Complexity** 🆕
+
+> 选 10 类的版本可启用 `response-modes.md` 的 7 种响应模式（与 `response_mode` 字段一一对应）。
+
+---
+
+## Issue 严重性（3 级 v2）
+
+| 级别 | 标签 | 含义 |
+| :--- | :--- | :--- |
+| `critical` | 关键 | 直接决定接收 |
+| `major` | 重要 | 显著影响 reviewer 信心 |
+| `minor` | 次要 | 写作/表达层面 |
+
+---
+
+## Reviewer 立场与优先级（v2 新增）
+
+每条 issue 须记录审稿人立场与优先级，影响策略规划的预算分配：
+
+| 字段 | 取值 | 含义 |
+| :--- | :--- | :--- |
+| `reviewer_stance` | `positive` / `swing` / `negative` / `unknown` | 审稿人当前立场 |
+| `reviewer_priority` | `standard` / `pivotal` | pivotal = 投票或信心转变可显著影响最终决定 |
+
+> `pivotal` 审稿人的回复获额外草稿预算（+20% 字符）+ 额外压力测试轮次（+1 轮）+ 必须使用 ≥ 2 项防御性写作动作（见 `defensive-moves.md`）。
