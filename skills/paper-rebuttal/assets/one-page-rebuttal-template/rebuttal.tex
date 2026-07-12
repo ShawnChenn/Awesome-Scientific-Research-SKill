@@ -1,0 +1,34 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{times}
+\usepackage{array}
+\usepackage{hyperref}
+
+\title{Rebuttal to Reviews}
+\author{Anonymous Authors}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Summary of Changes}
+\begin{itemize}
+  \item \textbf{Reviewer 2, W1 (soundness):} Added ablation study on X; results show $\Delta=+Y\%$ (Table 2).
+  \item \textbf{Reviewer 3, W2 (novelty):} Clarified positioning vs. recent work Z in \S3.1.
+  \item \textbf{Reviewer 1, W3 (clarity):} Rewrote \S4.2 for self-contained explanation.
+\end{itemize}
+
+\section*{Response to Reviewer 1}
+\textbf{W3 (clarity).} Thank you. We rewrote \S4.2 to make the derivation self-contained; the revised text now states the assumption explicitly and adds a worked example.
+
+\section*{Response to Reviewer 2}
+\textbf{W1 (soundness).} We agree and added the missing ablation on X. The new experiment (Table 2) shows our method gains $+Y\%$ over the strongest baseline, directly addressing your concern. \\
+\textbf{W4 (baseline).} We now compare against the concurrent SOTA B (cited in Related Work) and report the gap in Table 3.
+
+\section*{Response to Reviewer 3}
+\textbf{W2 (novelty).} As discussed in \S3.1, our contribution is orthogonal to Z: Z targets setting A, while we target setting B. We added a paragraph distinguishing the two and cite Z appropriately.
+
+\section*{Response to the Area Chair}
+All three primary concerns have been directly addressed: R2's soundness critique is answered with new experiments, R3's novelty concern with a positioning clarification, and R1's clarity point with a rewrite. We believe the revision substantially strengthens the paper.
+
+\end{document}

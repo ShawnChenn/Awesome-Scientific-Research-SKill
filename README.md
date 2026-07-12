@@ -12,11 +12,13 @@ A Collection of Reliable Skills for facilitating scientific research.
 4. [nature-skills](#4-nature-skills)
 5. [humanizer](#5-humanizer)
 6. [gpt-image-2-skill](#6-gpt-image-2-skill)
-7. [edit-banana](#7-edit-bananajie-tu-zhuan-ke-bian-ji-drawio)
-8. [ppt-master](#8-ppt-masterwendang-zhuan-ppt)
-9. [ai-figure-prompt-handbook](#9-ai-figure-prompt-handbookke-yan-tu-ti-shi-ci-shou-ce)
-10. [drawio-diagram-builder](#10-drawio-diagram-builder-drawio-tu-gou-jian-qi)
-11. [research-media-card](#11-research-media-cardke-yan-mei-ti-ka-pian)
+7. [paper-prereview](#7-paper-prereview-tou-gao-qian-zi-cha-skill)
+8. [paper-rebuttal](#8-paper-rebuttaltou-gao-hou-fan-bo-skill)
+9. [edit-banana](#9-edit-bananajie-tu-zhuan-ke-bian-ji-drawio)
+10. [ppt-master](#10-ppt-masterwendang-zhuan-ppt)
+11. [ai-figure-prompt-handbook](#11-ai-figure-prompt-handbookke-yan-tu-ti-shi-ci-shou-ce)
+12. [drawio-diagram-builder](#12-drawio-diagram-builder-drawio-tu-gou-jian-qi)
+13. [research-media-card](#13-research-media-cardke-yan-mei-ti-ka-pian)
 
 ---
 
@@ -223,22 +225,27 @@ npx openskills install anthropics/skills
 
 ---
 
-## 5. humanizer（去除 AI 写作痕迹）
+## 5. humanizer（去除 AI 写作痕迹 · 中文增强版）
 
-来源仓库：`https://github.com/blader/humanizer`
+来源仓库：`https://github.com/blader/humanizer`（英文版） + `https://github.com/op7418/Humanizer-zh`（汉化增强）
+本地化改造：`skills/humanizer/`（本仓库内置，含 24 模式中文适配 + 个性注入 + 质量评分）
 
-该 skill 基于 Wikipedia "Signs of AI writing" 指南，可消除 AI 生成文本的痕迹，使其更自然。
+基于 Wikipedia "Signs of AI writing" 指南，融合 Humanizer-zh 汉化增强，消除 AI 生成文本的痕迹，
+使其更自然、更有人味。在原有 5 类检测基础上新增：核心规则速查、**个性与灵魂注入**（6 条原则）、
+快速检查清单（10 项）、多维度质量评分（/50）。支持中英文输入，中文语境特殊适配。
 
 ### 安装
 
 ```bash
-# Claude Code
+# 方式 A：从本仓库直接复制（推荐，含中文增强）
 mkdir -p ~/.claude/skills
-git clone https://github.com/blader/humanizer.git ~/.claude/skills/humanizer
+cp -R skills/humanizer ~/.claude/skills/
 
-# OpenCode（也兼容 ~/.claude/skills/）
-mkdir -p ~/.config/opencode/skills
-git clone https://github.com/blader/humanizer.git ~/.config/opencode/skills/humanizer
+# 方式 B：一键安装 Humanizer-zh
+npx skills add https://github.com/op7418/Humanizer-zh.git
+
+# 方式 C：克隆英文原版
+git clone https://github.com/blader/humanizer.git ~/.claude/skills/humanizer
 ```
 
 ### 使用方式
@@ -261,24 +268,37 @@ Now humanize this text:
 [paste AI text to humanize]
 ```
 
-### 检测的 30 种 AI 特征模式
+### 检测的 24 种 AI 特征模式（中文适配）
 
-| 类别 | 模式数量 | 示例 |
+| 类别 | 模式 | 中文特定警告词 |
 | :--- | :--- | :--- |
-| 内容模式 | 6 种 | 显著性夸大、名人效应、虚假挑战 |
-| 语言模式 | 7 种 | AI 词汇、回避系动词、规则三 |
-| 风格模式 | 8 种 | 破折号滥用、标题大小写、emoji 使用 |
-| 沟通模式 | 3 种 | 聊天机器人话术、截断免责声明 |
-| 填充词/修饰 | 4 种 | 冗余短语、过度修饰、泛泛结论 |
+| 内容模式（6种） | 意义夸大、名人效应、-ing 肤浅分析、广告式语言、模糊归因、模板化挑战段 | 标志着、见证了、作为……的证明、令人叹为观止 |
+| 语言模式（6种） | AI 词汇、回避系动词、否定排比、三段式过度、同义词循环、虚假范围 | 此外、至关重要、强调、格局、充满活力、深入探讨 |
+| 风格模式（6种） | 破折号滥用、粗体过度、内联标题列表、标题大小写、emoji、弯引号 | —— 连用、🚀💡✅ 装饰 |
+| 交流模式（3种） | 聊天机器人话术、知识截止日期免责、谄媚语气 | 希望这对您有帮助、当然！好问题！ |
+| 填充词/修饰（3种） | 填充短语、过度限定、万能积极结论 | 值得注意的是、未来看起来光明 |
+
+### 🆕 质量评分体系（/50）
+
+| 维度 | 评估 |
+| :--- | :--- |
+| 直接性 /10 | 直接陈述事实还是绕圈宣告？ |
+| 节奏 /10 | 句子长短是否交错？ |
+| 信任度 /10 | 是否尊重读者智慧？ |
+| 真实性 /10 | 听起来像真人说话吗？ |
+| 精炼度 /10 | 还有可删减的内容吗？ |
+
+45-50 ✅ 优秀 / 35-44 ⚠️ 良好 / <35 ❌ 需重新修订
 
 ### 使用场景（简要）
 
-- 将 AI 生成文本转换为自然人类写作风格
+- 将 AI 生成文本转换为自然人类写作风格（含中文语境优化）
 - 个人声纹匹配（提供自己写作样本使输出符合个人习惯）
 - 批量文档/博客/技术文章的 AI 特征检测与修正
 - 团队写作前统一文本风格
+- 输出附带多维度质量评分，量化改写效果
 
-> 说明：以上安装命令来自该仓库 README，默认是 Unix shell（macOS/Linux）写法。
+> 说明：本 skill 融合 blader/humanizer（英文原版 30 模式）和 op7418/Humanizer-zh（汉化版 24 模式 + 个性注入 + 质量评分），取两者之长。
 
 ---
 
@@ -344,11 +364,133 @@ gpt-image -p "a cat astronaut"
 
 ---
 
+## 7. Paper-PreReview（投稿前自查 Skill）
+
+来源仓库：`https://github.com/xf686/Meet-Reviewer-2`
+本地化改造：`skills/paper-prereview/`（本仓库内置，聚焦 Mode A 投稿前红队）
+
+基于 Meet-Reviewer-2 的方法论，提取并改造为**你自己的投稿前检查 skill**。模拟一个有分歧的
+审稿小组（R1 拥护者 / R2 方法怀疑论者 / R3·AC 新意鹰派），由 AC 综合预测结局
+（Reject / Borderline / Accept），输出按"影响 × 成本"排序的修补清单。每条弱点必须钉到
+具体位置并过 ACL **H1–H17 公正性防火墙**，绝不脑补缺陷。
+
+### 安装
+
+```bash
+# 复制到 Claude Code 全局 skills
+mkdir -p ~/.claude/skills
+cp -R skills/paper-prereview ~/.claude/skills/
+
+# 或作为插件（指向本仓库）
+# /plugin marketplace add <本仓库地址>
+# /plugin install paper-prereview
+```
+
+### 核心机制
+
+| 机制 | 说明 |
+| :--- | :--- |
+| 三人格审稿小组 | R1 拥护者校准强弱、R2 专攻 soundness、R3·AC 卡 novelty |
+| 证据契约 | 每条 weakness 钉到 `[§x / 图y / 表z / 第n段]`，定位不到标 `⚠ MISSING` |
+| H1–H17 防火墙 | 对照 ACL 不正当批评黑名单过滤，命中即删除或降级 |
+| 三色分级 | 🔴 实质 / 🟡 误读风险 / 🟢 打磨 |
+| 修补清单 | 按"影响 × 成本"排序，标注 `✅ deadline内 / ⏳ 需新实验 / 🛟 写进 limitations` |
+
+### 使用方式
+
+```text
+# 基础：投稿前自查自己的草稿
+Red-team my draft before I submit: ~/papers/mypaper/main.tex
+
+# 指定会议 sharpen 面板
+Red-team this for NeurIPS, and add a reproducibility-stickler reviewer.
+
+# 中文
+投稿前帮我 red-team 这份草稿：~/papers/mypaper/main.tex
+```
+
+输入支持：`.pdf` / `.tex` / `.md` / arXiv 链接 / 粘贴文本。
+产物输出到 `prereview/<paper-slug>.md`（含模拟结局预测 + 共识弱点 + 修补清单）。
+
+### 使用场景（简要）
+
+- 投稿前本地红队草稿，预测审稿意见与结局
+- 按影响×成本排序生成可执行的修补清单
+- 指定会议（NeurIPS/ICLR/ACL）适配对应评分量表
+- 检查 claim-evidence 对齐、baseline 充分性、ablation 完整性
+
+---
+
+## 8. Paper-Rebuttal（投稿后反驳 Skill）
+
+来源仓库：`https://github.com/xiongqi123123/awesome-rebuttal`
+本地化改造：`skills/paper-rebuttal/`（本仓库内置，技能优先架构 + 分层原子能力）
+
+基于 awesome-rebuttal 的方法论，提取并改造为**你自己的投稿后反驳 skill**。覆盖全生命周期：
+工作区初始化 → 评审理解 → 策略规划 → 实验分类（Triage）→ 格式感知起草 →
+提交前安全门禁 → 压力测试 → 多轮讨论处理。各阶段结构化记忆持久化在
+`<rebuttal-workspace>/.paper-rebuttal/`。
+
+### 安装
+
+```bash
+# 复制到 Claude Code 全局 skills
+mkdir -p ~/.claude/skills
+cp -R skills/paper-rebuttal ~/.claude/skills/
+
+# 或作为插件（指向本仓库）
+# /plugin marketplace add <本仓库地址>
+# /plugin install paper-rebuttal
+```
+
+### 核心能力（七阶段）
+
+| 阶段 | 能力 | 产物 |
+| :--- | :--- | :--- |
+| 1 评审理解 | 原子关注点账本 + 跨审稿人聚类 | `concern_ledger.json` |
+| 2 策略规划 | 姿态矩阵 + 优先级 + AC 决策事实 | `strategy_matrix.json` |
+| 3 实验分类 | 必须做 / 高价值 / 不推荐 / 不可行 | 写入策略矩阵 |
+| 4 起草 | 单页 PDF / OpenReview / 全局 / 混合 / MD+LaTeX | `drafts/` |
+| 5 安全门禁 | 无支撑声明 / 伪造 / 权限 / 敌对 / 匿名泄漏 | 5 项检查表 |
+| 6 压力测试 | 重构审稿人 / 独立审稿人 / AC 模拟 | 加固清单 |
+| 7 多轮讨论 | 跟进判定 + 一致性维护 | 讨论轮次回应 |
+
+### 使用方式
+
+```text
+# 初始化工作区
+Use Paper-Rebuttal to initialize this rebuttal workspace.
+
+# 评审分析 + 策略
+Use Paper-Rebuttal: the reviews are in Reference/. Build the concern analysis and a strategy plan.
+
+# 起草单页 PDF
+Use Paper-Rebuttal to draft a one-page PDF rebuttal from the approved strategy.
+
+# 提交前压力测试
+Use Paper-Rebuttal to rehearse the rebuttal: simulate the reviewers and AC, and tell me what to harden.
+
+# 讨论期处理
+Use Paper-Rebuttal: here is Reviewer 2's follow-up reply — help me decide whether and how to respond.
+```
+
+内置单页 LaTeX 模板：`skills/paper-rebuttal/assets/one-page-rebuttal-template/rebuttal.tex`。
+
+### 使用场景（简要）
+
+- 收到审稿意见后规范化拆解原子关注点、聚类共识弱点
+- 规划反驳姿态（接受修补 / 澄清 / 温和反驳 / 暂不处理）与优先级
+- 补实验分类（Triage），避免盲目跑无用实验
+- 按会议格式起草 rebuttal，提交前过安全门禁防翻车
+- 多轮讨论期判定是否回应、保持一致性
+
+---
+
 > **⚠️ 以下为辅助工作工具，非 Skills 插件。** 记录于此供参考，无需安装为 skill，直接按仓库说明使用即可。
 
 ---
 
-## 7. Edit Banana（截图转可编辑 Draw.io）
+## 9. Edit Banana（截图转可编辑 Draw.io）
 
 来源仓库：`https://github.com/bit-datalab/edit-banana`
 
@@ -385,7 +527,7 @@ cp config/config.yaml.example config/config.yaml
 
 ---
 
-## 8. PPT Master（文档转PPT）
+## 10. PPT Master（文档转PPT）
 
 来源仓库：`https://github.com/hugohe3/ppt-master`
 
