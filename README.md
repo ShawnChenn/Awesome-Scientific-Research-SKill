@@ -19,6 +19,8 @@ A Collection of Reliable Skills for facilitating scientific research.
 11. [ai-figure-prompt-handbook](#11-ai-figure-prompt-handbookke-yan-tu-ti-shi-ci-shou-ce)
 12. [drawio-diagram-builder](#12-drawio-diagram-builder-drawio-tu-gou-jian-qi)
 13. [research-media-card](#13-research-media-cardke-yan-mei-ti-ka-pian)
+14. [anti-defensive-writing](#14-anti-defensive-writingqiang-hua-xue-zhu-wen-ben)
+15. [ccf-figure](#15-ccf-figureding-hui-ji-ke-pai-ji-ke-yan-pei-tu)
 
 ---
 
@@ -697,3 +699,96 @@ cp -R research-media-card ~/.claude/skills/
 - Gemini：`Use research-media-card to translate my paper into a visual story card.`
 
 > 说明：本 skill 为本地自建，目录内包含 `references/examples/` 参考样例图片。
+
+---
+
+## 14. anti-defensive-writing（强化学术文本 · 去除防御性写作）
+
+来源仓库：`https://github.com/Kiterlin/anti-defensive-writing`
+
+一个 Codex skill，用于**识别并修订防御性写作（defensive writing）**——即在学术或专业文本中过度预判反驳、边界情况、读者误解或审稿人质疑，导致文字更长、更弱、焦点涣散。让论证更直接、精确、claim-forward，同时保留必要的 scope、方法局限与法律/伦理边界。
+
+### 安装
+
+```bash
+# 方式 A：克隆后复制到 Codex skills（推荐，可先审阅内容）
+git clone https://github.com/Kiterlin/anti-defensive-writing.git
+mkdir -p ~/.codex/skills
+cp -R anti-defensive-writing ~/.codex/skills/
+
+# 方式 B：Claude Code 全局安装
+mkdir -p ~/.claude/skills
+cp -R anti-defensive-writing ~/.claude/skills/
+```
+
+> 注意：仓库 README 另提供 `curl ... | sh` 一键安装脚本，但会直接执行远程脚本，存在安全风险。建议优先使用上面的手动 clone + 复制方式，先审阅内容再安装。
+
+### 核心能力
+
+| 能力 | 说明 |
+| :--- | :--- |
+| 防御性写作检测 | 定位反复申明"本文不声称…"、贡献段以局限开头、滥用模糊 hedges（`may`/`could`/`potentially`）、冗长但无增益的 caveat |
+| 文本强化改写 | 将论证改为 direct、precise、claim-forward，同时保留必要 scope 与方法局限 |
+| 适用场景 | 论文、摘要、proposal、基金申请、专业报告、技术/产品说明文案 |
+
+### 使用场景（简要）
+
+- 论文投稿前去除防御性话术，让贡献更突出
+- 摘要/引言中删减无增益的 hedging 与 caveat
+- proposal / grant 文本强化论证力度但保持严谨
+- 技术报告与产品说明中消除"过度保护论点"的冗长表达
+
+示例提示词：
+
+- Codex：`Use anti-defensive-writing to revise my paper's Introduction and remove hedging that weakens the contribution.`
+- Claude Code：`Please use anti-defensive-writing to strengthen this abstract and make the claims more direct.`
+
+> 说明：本 skill 由 Kiterlin 维护，MIT License，GitHub Topics 含 `academic-writing` / `agent-skill` / `codex-skill` / `editing` / `writing`。
+
+---
+
+## 15. CCF-Figure（顶会级科研配图）
+
+来源仓库：`https://github.com/Deepshare-Official/CCF-Figure`
+
+一个面向 AI / 计算机科学研究的 skill，用于从论文内容生成符合顶会视觉标准的出版级科研配图（NeurIPS / ICML / ICLR / CVPR / ACL / Nature MI / IEEE TPAMI 等）。核心理念是**先分类论文类型，再自动选取最优图结构**，而非机械套用"左输入→中模型→右输出"的通用模板。
+
+### 安装
+
+```bash
+# Claude Code（用户级，所有项目可用）
+git clone https://github.com/Deepshare-Official/CCF-Figure ~/.claude/skills/ccf-figure
+
+# Claude Code（项目级）
+git clone https://github.com/Deepshare-Official/CCF-Figure .claude/skills/ccf-figure
+
+# Codex（用户级）
+git clone https://github.com/Deepshare-Official/CCF-Figure ~/.agents/skills/ccf-figure
+
+# Codex（项目级）
+git clone https://github.com/Deepshare-Official/CCF-Figure .agents/skills/ccf-figure
+```
+
+### 核心能力
+
+| 能力 | 说明 |
+| :--- | :--- |
+| 论文类型自动分类 | 识别 7 类论文：method、mechanism/analysis、benchmark/evaluation、scaling-law/trend、robotics/embodied-AI、interdisciplinary、survey |
+| 图结构自动选择 | 从 11 种图结构中匹配最佳布局 |
+| 完整提示词库 | 中英文双语 prompt 模板，可直接复制使用 |
+| 5 类失败模式预防 | 内置自检清单，规避常见 AI 配图错误 |
+| 迭代协议 | 标准化修订流程，最多 3 轮 |
+
+### 使用场景（简要）
+
+- 根据论文类型生成 method / benchmark / scaling-law 等顶会级配图
+- 替代通用模板，按论文语义自动选图结构
+- 中英文 prompt 辅助在 Claude Code / Codex 中出图
+- 规避 AI 配图常见失败模式（自检清单）
+
+示例提示词：
+
+- Claude Code：`Use ccf-figure to generate a publication-ready method figure for my NeurIPS paper.`
+- Codex：`Please use ccf-figure to create a benchmark/evaluation figure that matches top-venue visual standards.`
+
+> 说明：本 skill 由 Deepshare-Official（深度之眼）维护，MIT License，GitHub Topics 含 `AI Research Tools` / `Scientific Figure Generation` / `Claude Code Skills` / `Codex Skills` / `Prompt Engineering`。
