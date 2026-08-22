@@ -21,6 +21,9 @@ A Collection of Reliable Skills for facilitating scientific research.
 13. [research-media-card](#13-research-media-cardke-yan-mei-ti-ka-pian)
 14. [anti-defensive-writing](#14-anti-defensive-writingqiang-hua-xue-zhu-wen-ben)
 15. [ccf-figure](#15-ccf-figureding-hui-ji-ke-pai-ji-ke-yan-pei-tu)
+16. [academic-figure-skill](#16-academic-figure-skillxue-shu-ke-yan-pei-tu-skill)
+17. [scipilot-figure-skill](#17-scipilot-figure-skillke-yan-ke-yan-pei-tu-copilot)
+18. [paper-framework-figure-studio-pro](#18-paper-framework-figure-studio-prolun-wen-jia-gou-tu-gong-zuo-shi)
 
 ---
 
@@ -792,3 +795,183 @@ git clone https://github.com/Deepshare-Official/CCF-Figure .agents/skills/ccf-fi
 - Codex：`Please use ccf-figure to create a benchmark/evaluation figure that matches top-venue visual standards.`
 
 > 说明：本 skill 由 Deepshare-Official（深度之眼）维护，MIT License，GitHub Topics 含 `AI Research Tools` / `Scientific Figure Generation` / `Claude Code Skills` / `Codex Skills` / `Prompt Engineering`。
+
+---
+
+## 16. academic-figure-skill（学术科研配图 Skill）
+
+来源仓库：`https://github.com/TingxiYu/academic-figure-skill`
+
+一个面向 AI 编程助手（Claude Code / Codex / Cursor / GitHub Copilot）的 Skill 包，让其能够**自主生成符合顶刊（Nature / Cell / Science）标准的出版级科研配图**。核心理念是**"问题驱动，而非模板驱动"**——每张图都从科学问题出发，走完 **8 步闭环工作流**，最终交付：
+
+- 矢量 **PDF** 主文件（用于投稿）
+- **300 dpi PNG** 预览图
+- 统计报告 + QA 报告
+
+### 安装
+
+```bash
+# Claude Code（全局）
+mkdir -p ~/ai-skills
+cd ~/ai-skills
+git clone https://github.com/TingxiYu/academic-figure-skill.git
+cp -r academic-figure-skill ~/.claude/skills/
+
+# Codex
+git clone https://github.com/TingxiYu/academic-figure-skill.git
+cd academic-figure-skill
+mkdir -p ~/.codex/skills/academic-figure-skill
+cp -r SKILL.md references/ scripts/ assets/ install/codex/* ~/.codex/skills/academic-figure-skill/
+
+# Cursor（写入 .cursorrules）
+git clone https://github.com/TingxiYu/academic-figure-skill.git
+cp academic-figure-skill/install/cursor/.cursorrules <your-project>/.cursorrules
+
+# GitHub Copilot（写入 .github 指令）
+git clone https://github.com/TingxiYu/academic-figure-skill.git
+mkdir -p <your-project>/.github
+cp academic-figure-skill/install/copilot/copilot-instructions.md <your-project>/.github/
+```
+
+### 8 步工作流
+
+1. **用户意图解析** – 澄清研究问题
+2. **原型分类** – 4 种范式（定量网格 / 示意主导 / 图像+定量 / 非对称混合）
+3. **图表论证** – 面板方案设计，与用户确认
+4. **环境检测** – 检查 Python / R 运行环境
+5. **风格注入** – 排版 + 配色基准
+6. **资产检索** – 扫描 `assets/figures/<type>/` 复用生产脚本
+7. **渲染生成** – 原生运行匹配脚本（Copy-First 规则）或继承参数
+8. **质量校验** – 4 轮 QA 协议（30+ 检查项）后交付
+
+### 核心能力
+
+| 能力 | 说明 |
+| :--- | :--- |
+| 原型分类 | 4 种范式自动驱动布局与 hero-panel 策略 |
+| 29 种图类型 | 热力图、火山图、柱状、散点、箱线、PCA、RDA、雷达、桑基、AUROC、ridge、violin 等，每种含 `.py`/`.R` 脚本 |
+| Copy-First 规则 | 原生运行既有生产脚本（Python→`.py`，R→`.R`），不翻译不降质 |
+| 跨类型继承 | 无匹配脚本时借用相近图类型的视觉参数（配色/比例/逻辑）|
+| 多语言混排 | R 面板经 Cairo→PNG；Python `compose.py` 按物理尺寸拼多面板 |
+| 4 轮 QA 协议 | Pass 0 反模式 → Pass 1 代码合规 → Pass 2 视觉逻辑 → Pass 3 渲染核验（30+ 检查）|
+| 数据校验门 | 渲染前每面板预检（如火山图需 ≥10 个差异基因）|
+| 期刊配色体系 | Nature（冷蓝）/ Cell（暖色）/ Science（灰）；色盲友好 |
+| 审稿人模拟 | 5 维批评，区分 must-fix 与建议项 |
+
+### 使用场景（简要）
+
+- 从数据出发生成 CNS 级科研配图，几乎无需手动调参
+- 火山图（差异表达）、AUROC 曲线（分类评估）、PCA（群体结构）、桑基（通路流）、3D 热力图（多因子互作）等
+- R + Python 混合多面板复杂补充图组装
+- 投稿前用 4 轮 QA 与审稿人模拟自查图表质量
+
+示例提示词：
+
+- Claude Code：`Use academic-figure-skill to draw a Nature-style volcano plot from data.csv.`
+- Codex：`Please use academic-figure-skill to create a multipanel figure combining PCA and heatmap.`
+
+> 说明：本 skill 由 TingxiYu 维护，Apache-2.0 License，仓库约 246 stars，覆盖 29 种图表类型与 8 步闭环工作流。
+
+---
+
+## 17. scipilot-figure-skill（科研配图 Copilot）
+
+来源仓库：`https://github.com/Haojae/scipilot-figure-skill`
+
+SciPilot Skills 家族第二成员，面向 **Claude Code / Codex / Cursor** 的科研数据可视化顾问。核心理念是**"先思考，后绘图（thinks first, plots second）"**——不立即出图，而是先对你的数据做 profiling，再帮你选对最能支撑研究论点的图。
+
+### 安装
+
+```bash
+git clone https://github.com/Haojae/scipilot-figure-skill.git \
+          ~/.claude/skills/scipilot-figure-skill
+pip install -r ~/.claude/skills/scipilot-figure-skill/requirements.txt
+```
+
+### 8 步工作流
+
+理解 → 数据 profiling → 选图 → 核对期刊规范 → 风格注入 → 绘图 → 自检 → 导出。
+
+### 核心能力
+
+| 能力 | 说明 |
+| :--- | :--- |
+| 数据 profiling 优先 | 绘图前先做 EDA，并询问"这张图要支撑什么结论"（列类型 / 样本量 / 分布 / 离群 / 相关）|
+| 选图决策框架 | 按数据形态 + 意图推荐图类型（`chart_selection.md`）|
+| 主动拦截坏实践 | 拒绝 n<10/组的均值柱状图（改箱线+散点）、双 Y 轴误导相关、饼图/3D、jet 配色等（15 项陷阱见 `viz_pitfalls.md`）|
+| 期刊规范 | 列宽、字号、DPI、字体按目标期刊设定（`journal_specs.md`，含 Nature/Science/IEEE/Elsevier/PNAS 及中文期刊）|
+| CJK 字体自动配置 | 依次回退 Noto Sans CJK SC > Source Han Sans SC > SimHei > Microsoft YaHei，修复减号/中文"豆腐块"|
+| V2.1 视觉自检循环 | 渲染 PNG 后程序化审计（`visual_qa`）捕获缺字/裁切/重叠，AI 再读图查图例遮挡、面板对齐、灰度辨识，循环直到干净 |
+| 五条硬规则 | 终尺寸渲染不缩放；优先矢量（PDF/SVG/EPS，不用 JPEG）；色盲安全配色（Okabe-Ito）；可读字号（7–9 pt，最小 6 pt）；误差须在 caption 说明（SD/SEM/CI + n + 检验）|
+| 出版级导出 | 多格式、终尺寸输出、灰度预览（`export_figure.py`）|
+
+### 使用场景（简要）
+
+- 只给裸 CSV：skill 先 profiling、问清论点，推荐图类型与替代方案，确认后再绘
+- 请求不合适图表：如"3 组各 5 样本用均值柱"被拦截并改为箱线+散点叠加
+- 多面板合图：Nature 双栏 Figure 1 含 PCA / loss / 混淆矩阵 / 生存曲线四面板，统一字体配色，`add_panel_labels` 对齐 a/b/c/d
+- 统计比较：带显著性标注的箱线图，绘前确认 n、检验方法、多重校正
+- CLI 直接使用：`profile_data.py` / `setup_style.py` / `export_figure.py` / `check_figure.py`
+
+示例提示词：
+
+- Claude Code：`Use scipilot-figure-skill to profile data.csv and recommend a figure that supports my claim.`
+- Codex：`Please use scipilot-figure-skill to build a multi-panel Nature-style figure from these results.`
+
+> 说明：本 skill 由 Haojae 维护，MIT License（© 2026），版本 v2.1.0，仓库约 1.9k stars；基于 matplotlib + seaborn + SciencePlots（静态）与 plotly（交互），强调"先分析后绘图"与坏实践主动拦截。
+
+---
+
+## 18. paper-framework-figure-studio-pro（论文架构图多轮协同工作室）
+
+来源仓库：`https://github.com/c-narcissus/paper-framework-figure-studio-pro`
+
+一个面向 AI 编程助手（主要 ChatGPT Web，含历史 Codex 版本）的**提示词式 skill 包**，用于自动化起草计算机科学论文的**架构图 / 方法总览图 / pipeline 流程图 / agent 工作流图**。它不一次出最终图，而是通过**人机协同（human-in-the-loop）工作流**产出多个可审计的候选草稿，供作者筛选、对比、手改、定稿。当前 `main` 分支为 **v3.2.15f**。
+
+### 获取与安装
+
+```bash
+# 克隆整个仓库（含 skill 压缩包、示例、文档）
+git clone https://github.com/c-narcissus/paper-framework-figure-studio-pro.git
+```
+
+或直接下载仓库 `main` 分支的 skill 压缩包（无系统级安装，由 LLM 作为参考 skill 读取）：
+
+- `paper-framework-figure-studio-pro-v3.2.15f-skill.zip`（ChatGPT Web 用）
+- `paper-framework-figure-studio-pro-v3.2.15c-skill.zip`（旧版，含 Codex 兼容的线稿风格）
+
+示例用法提示词：
+
+> "请严格遵循 `sources/paper-framework-figure-studio-pro-v3.2.15f-skill.zip` 内 skill 的人机协同工作流步骤，为 `sources/semiDFL.pdf` 绘制一张图。"
+
+### S0–S5 分阶段工作流
+
+| 阶段 | 类型 | 内容 |
+| :--- | :--- | :--- |
+| S0 | 文本 | 抽取论文事实、算法、模块、箭头、风险 |
+| S1 | 文本+提示词准备 | 诊断图类型、读者路径，准备可审计提示词包 |
+| S2 | 仅图像 | 第一轮全局探索候选（v3.2.15f 默认 C01–C04）|
+| S3 | 文本 | 评审候选、建立问题台账、记录偏好 |
+| S4 | 文本+提示词准备 | 正式候选矩阵与 S5 提示词包 |
+| S5 | 仅图像/终端 | 第二轮正式候选（默认 F01–F02），工作流结束，人工定稿 |
+
+### 核心能力
+
+| 能力 | 说明 |
+| :--- | :--- |
+| 提示词契约系统 | 生成前审计结构化规格（语义图、视觉渲染图、可见文本白名单、线承载变量、负向约束）|
+| 两轮发散-收敛 | 先广域探索，后聚焦正式候选 |
+| 严格检查点治理 | 每阶段检查点可重建，不完整则触发修复或重做 |
+| 风格控制 | 默认正式出版风；可在 S1/S4 注入 `ACM/IEEE/AAAI 双栏线稿示意图` 表面风格 |
+| 仅参考图输出 | 产出 PNG 候选（生成提示词存于子文件夹）供手绘复刻；非默认可编辑 SVG/PPT |
+| 中断可恢复 | 通过检查点 zip 或重跑上一步提示词续作 |
+
+### 使用场景（简要）
+
+- CS 研究者需要论文方法总览 / 架构 / pipeline 图
+- 生成多样化草稿以避免"空白页瘫痪"并对比视觉策略
+- 经 S5 后风格转换满足 IEEE/Nature/PLOS/Wiley 线稿规范
+- 通过让 AI 从本地知识推断 skill 构建流程，扩展到非 CS 领域
+- 适配 ChatGPT Web（chat / work 模式）；历史 Codex 用旧版 zip；Cursor/subagents 版本规划中
+
+> 说明：本 skill 由 c-narcissus 维护，MIT-0（MIT No Attribution）License，当前版本 v3.2.15f（约 66 commits）；以多轮协同产出可审计候选图为特色，最终图为参考 PNG，需人工复刻为可编辑稿件。
