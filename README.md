@@ -24,6 +24,7 @@ A Collection of Reliable Skills for facilitating scientific research.
 16. [academic-figure-skill](#16-academic-figure-skillxue-shu-ke-yan-pei-tu-skill)
 17. [scipilot-figure-skill](#17-scipilot-figure-skillke-yan-ke-yan-pei-tu-copilot)
 18. [paper-framework-figure-studio-pro](#18-paper-framework-figure-studio-prolun-wen-jia-gou-tu-gong-zuo-shi)
+19. [CCFA-Skills](#19-ccfa-skillsccf-a-lun-wen-ji-neng-jia-zu)
 
 ---
 
@@ -975,3 +976,58 @@ git clone https://github.com/c-narcissus/paper-framework-figure-studio-pro.git
 - 适配 ChatGPT Web（chat / work 模式）；历史 Codex 用旧版 zip；Cursor/subagents 版本规划中
 
 > 说明：本 skill 由 c-narcissus 维护，MIT-0（MIT No Attribution）License，当前版本 v3.2.15f（约 66 commits）；以多轮协同产出可审计候选图为特色，最终图为参考 PNG，需人工复刻为可编辑稿件。
+
+---
+
+## 19. CCFA-Skills（CCF-A 论文技能族）
+
+来源仓库：`https://github.com/mikubaka88/CCFA-Skills`
+
+面向 **CCF-A 类论文**写作的 **AI 代理技能族**（共 17 个模块化技能），适配 Claude Code、Codex、Cursor、Gemini CLI 等。它把论文写作视为一条**"研究故事线"**，覆盖**从构思到投稿**的全生命周期：不是单一庞大 Prompt，而是分工明确的技能各司其职（检索忠实于来源、审稿独立于写作），任务在技能间传递时保留研究问题、证据与结论之间的关联。
+
+### 安装
+
+```bash
+# Codex 一行安装
+npx skills add mikubaka88/CCFA-Skills --global --agent codex --skill '*' --yes --copy
+
+# 标准克隆（Claude Code / Cursor / Gemini CLI 等按各自 skills 目录复制）
+git clone https://github.com/mikubaka88/CCFA-Skills.git
+```
+
+### 17 个核心技能（按研究阶段）
+
+| 阶段 | 技能 | 用途 |
+| :--- | :--- | :--- |
+| 协调 | `ccf-common` | 共享规则、基于证据的处理、隐私 |
+| 进程 | `ccf-pipeline-orchestrator` | 目标、里程碑、下一步行动 |
+| 启动 | `ccf-project-scaffolder` | 论文目录 / 模板设置 |
+| 构思 | `ccf-idea-reviewer` / `ccf-idea-optimizer` | 评估构思价值；把模糊想法发展为问题与方法 |
+| 文献 | `ccf-literature-searcher` / `ccf-literature-monitor` | 检索相关工作、基准、基线；跟踪新论文 |
+| 实验 | `ccf-experiment-designer` | 主实验、消融实验、鲁棒性 |
+| 完整性 | `ccf-integrity-auditor` | 验证声明、数字、引用 |
+| 评审 | `ccf-paper-reviewer` | 独立同行评审式评估、版本对比、录用就绪度 |
+| 写作 | `ccf-paper-writer` / `ccf-humanization` | 起草/润色；移除防御性或机械化语言 |
+| 反驳 | `ccf-rebuttal-writer` | 反驳意见、回复信、修订记录 |
+| 绘图 | `ccf-visual-composer` | 可复现图表、方法/架构图、可编辑 SVG/PDF/PPTX |
+| 投稿 | `ccf-submission-checker` | 模板、页数、匿名性、PDF 检查 |
+| 学习 | `ccf-paper-to-exemplar` | 从你提供的模范论文提取写作模式 |
+| 维护 | `ccf-skill-forger` | 改进技能本身 |
+
+### 使用场景（简要）
+
+- 对 3 个论文构思排名并指出可能被拒稿的原因
+- 检索近 3 年特定主题的相关工作
+- 设计实验且不编造结果
+- 以 CVPR 风格重写方法部分
+- 生成方法架构图（可编辑 PPTX 选项）
+- 最新适配（2026-09）：ICLR 2027 准则——匿名性、页数限制、年度模板、AI 使用声明检查
+
+### 红线保证
+
+- 不伪造实验结果、引用、模块或会议规则
+- 隐私：仅在授权后读取私有论文/外部搜索所需的最低限度信息
+- 用户可禁用任何技能，其余技能尊重该选择
+- 自动评分必须披露其度量与不确定性
+
+> 说明：本 skill 族由 mikubaka88 维护，MIT License，版本 v0.10.0（约 60 commits），仓库约 2.9k stars / 125 forks；提供英文、简繁中文三语 README，覆盖构思→文献→实验→写作→审稿→反驳→投稿全流程。
