@@ -25,6 +25,7 @@ A Collection of Reliable Skills for facilitating scientific research.
 17. [scipilot-figure-skill](#17-scipilot-figure-skillke-yan-ke-yan-pei-tu-copilot)
 18. [paper-framework-figure-studio-pro](#18-paper-framework-figure-studio-prolun-wen-jia-gou-tu-gong-zuo-shi)
 19. [CCFA-Skills](#19-ccfa-skillsccf-a-lun-wen-ji-neng-jia-zu)
+20. [vivid-figures-skill](#20-vivid-figures-skillsheng-dong-shu-ju-tu-ke-yan-hui-tu-pei-fang-ku)
 
 ---
 
@@ -1031,3 +1032,70 @@ git clone https://github.com/mikubaka88/CCFA-Skills.git
 - 自动评分必须披露其度量与不确定性
 
 > 说明：本 skill 族由 mikubaka88 维护，MIT License，版本 v0.10.0（约 60 commits），仓库约 2.9k stars / 125 forks；提供英文、简繁中文三语 README，覆盖构思→文献→实验→写作→审稿→反驳→投稿全流程。
+
+---
+
+## 20. vivid-figures-skill（生动数据图 · 科研绘图配方库）
+
+来源仓库：`https://github.com/yjz211/vivid-figures-skill`
+
+一句话定位：**把数据交给 AI，让它帮你选图、画图、检查，再交付图片和绘图源码**。面向论文、数学建模和实验报告的科研绘图 Skill，采用 Agent Skills 开放规范（根目录 `SKILL.md` 为标准 YAML 元数据 + Markdown 正文，其他文件按相对路径加载）。
+
+### 安装
+
+```bash
+# 克隆仓库
+git clone https://github.com/yjz211/vivid-figures-skill.git
+
+# Claude Code 全局安装
+mkdir -p ~/.claude/skills
+cp -R vivid-figures-skill ~/.claude/skills/
+
+# Codex 全局安装
+mkdir -p ~/.codex/skills
+cp -R vivid-figures-skill ~/.codex/skills/
+
+# 安装 Python 依赖
+pip install -r vivid-figures-skill/requirements.txt
+```
+
+环境要求：Python 3.10+；可选 Node.js 22.6+（用于完整图集规划）；普通数据图**无需配置图像生成 API Key**。具体安装命令以仓库内《安装指南》为准。
+
+### 核心能力
+
+| 能力 | 说明 |
+| :--- | :--- |
+| 143 个图表配方 | 146 张模板说明卡与预览：108 个原配方 + 32 个截图恢复模板 + 三维分组渐变柱状图、多Y轴渐变直方图、立体方块相关性热图等 |
+| 3 套完整组合模板 | SEM 与两套 SHAP 组合图，可直接整图复用 |
+| 七套配色 | 珊瑚青绿、橄榄杏棕（默认）、蓝粉浅彩、蓝天绿地、柔绿森林、粉彩少女、海洋清风，支持自定义；配色由单一 JSON 色板提供 |
+| 统一模板检索 | 全部说明卡可按用途、结构和数据要求搜索、按标签筛选，下载后可在浏览器打开图文目录 |
+| 全流程交付 | 读取数据 → 选择配方 → 执行绘图 → 查看结果 → 按需修复；在任务目录 `figures/` 下输出 PNG（预览）、PDF（排版）与可继续修改的绘图源码 |
+| 防简化机制 | 强制先读取完整配方并以配方代码为起点适配数据；渐变、透明度层次和关键图形元素必须保留，不能随意简化成纯色或轮廓 |
+| 数据诚实 | 数据不支持某元素（如无重复试验数据）时须说明调整原因，不凭空补置信带 |
+
+### 使用方式
+
+在对话中指明使用 `vivid-figures-skill`，可直接描述需求或指定图型（山脊图、雨云图、热力图等）：
+
+```text
+用 vivid-figures-skill 读取 results.csv，比较不同方法的得分分布。
+用珊瑚青绿配色。图型你来选，输出 PNG、PDF 和绘图源码。
+
+用 vivid-figures-skill 给这份实验结果画一组论文配图。
+用珊瑚青绿配色。保留模板的渐变和层次，不要随意简化。
+
+继续修改刚才的图：图例移到上方，字号稍微加大。
+沿用已经选好的风格和配色，保留其他设计。
+```
+
+同一任务的补图/修图会自动沿用已选配色与风格。
+
+### 使用场景（简要）
+
+- Excel / CSV / JSON 数据快速出图：读懂字段、自动选型
+- 实验结果与模型对比：性能对比、误差分布、收敛曲线、置信区间
+- 空间坐标、曲面或工程数据：三维曲面、轨迹、地图或工程图
+- 方法说明与关系：流程图、技术路线图、精确几何图
+- 已有图与绘图源码：调整颜色、文字、间距或布局，保留原模板设计
+
+> 说明：本 skill 由 yjz211 维护（约 433 stars / 29 forks），**仅限个人、非商业使用**，未经书面许可禁止二次开发及商业使用；项目配置使用 `.vivid/` 目录。
