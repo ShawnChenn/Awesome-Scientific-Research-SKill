@@ -6,26 +6,40 @@ A Collection of Reliable Skills for facilitating scientific research.
 
 ## Table of Contents
 
-1. [Research-Paper-Writing-Skills](#1-research-paper-writing-skills)
-2. [figures4papers](#2-figures4papers)
-3. [awesome-ai-research-writing](#3-awesome-ai-research-writing)
-4. [nature-skills](#4-nature-skills)
-5. [humanizer](#5-humanizer)
-6. [gpt-image-2-skill](#6-gpt-image-2-skill)
-7. [paper-prereview](#7-paper-prereview-tou-gao-qian-zi-cha-skill)
-8. [paper-rebuttal](#8-paper-rebuttaltou-gao-hou-fan-bo-skill)
-9. [edit-banana](#9-edit-bananajie-tu-zhuan-ke-bian-ji-drawio)
-10. [ppt-master](#10-ppt-masterwendang-zhuan-ppt)
-11. [ai-figure-prompt-handbook](#11-ai-figure-prompt-handbookke-yan-tu-ti-shi-ci-shou-ce)
-12. [drawio-diagram-builder](#12-drawio-diagram-builder-drawio-tu-gou-jian-qi)
-13. [research-media-card](#13-research-media-cardke-yan-mei-ti-ka-pian)
-14. [anti-defensive-writing](#14-anti-defensive-writingqiang-hua-xue-zhu-wen-ben)
-15. [ccf-figure](#15-ccf-figureding-hui-ji-ke-pai-ji-ke-yan-pei-tu)
-16. [academic-figure-skill](#16-academic-figure-skillxue-shu-ke-yan-pei-tu-skill)
-17. [scipilot-figure-skill](#17-scipilot-figure-skillke-yan-ke-yan-pei-tu-copilot)
-18. [paper-framework-figure-studio-pro](#18-paper-framework-figure-studio-prolun-wen-jia-gou-tu-gong-zuo-shi)
+### 🎨 论文绘图类 Skills
+
+1. [figures4papers](#2-figures4papers)
+2. [nature-skills](#4-nature-skills)（含 nature-figure）
+3. [gpt-image-2-skill](#6-gpt-image-2-skill)
+4. [ai-figure-prompt-handbook](#11-ai-figure-prompt-handbookke-yan-tu-ti-shi-ci-shou-ce)
+5. [drawio-diagram-builder](#12-drawio-diagram-builder-drawio-tu-gou-jian-qi)
+6. [research-media-card](#13-research-media-cardke-yan-mei-ti-ka-pian)
+7. [ccf-figure](#15-ccf-figureding-hui-ji-ke-pai-ji-ke-yan-pei-tu)
+8. [academic-figure-skill](#16-academic-figure-skillxue-shu-ke-yan-pei-tu-skill)
+9. [scipilot-figure-skill](#17-scipilot-figure-skillke-yan-ke-yan-pei-tu-copilot)
+10. [paper-framework-figure-studio-pro](#18-paper-framework-figure-studio-prolun-wen-jia-gou-tu-gong-zuo-shi)
+11. [vivid-figures-skill](#20-vivid-figures-skillsheng-dong-shu-ju-tu-ke-yan-hui-tu-pei-fang-ku)
+12. [FigGenie-paper-diagram-skill](#21-figgenie-paper-diagram-skillding-hui-feng-ge-lun-wen-tu)
+
+### ✍️ 论文写作类 Skills
+
+13. [Research-Paper-Writing-Skills](#1-research-paper-writing-skills)
+14. [awesome-ai-research-writing](#3-awesome-ai-research-writing)
+15. [humanizer](#5-humanizer)
+16. [anti-defensive-writing](#14-anti-defensive-writingqiang-hua-xue-zhu-wen-ben)
+
+### 🔍 评审 / 反驳类 Skills
+
+17. [paper-prereview](#7-paper-prereview-tou-gao-qian-zi-cha-skill)
+18. [paper-rebuttal](#8-paper-rebuttaltou-gao-hou-fan-bo-skill)
 19. [CCFA-Skills](#19-ccfa-skillsccf-a-lun-wen-ji-neng-jia-zu)
-20. [vivid-figures-skill](#20-vivid-figures-skillsheng-dong-shu-ju-tu-ke-yan-hui-tu-pei-fang-ku)
+
+### 🛠 辅助工具（非 Skill 插件）
+
+20. [edit-banana](#9-edit-bananajie-tu-zhuan-ke-bian-ji-drawio)
+21. [ppt-master](#10-ppt-masterwendang-zhuan-ppt)
+
+> 注：正文章节编号保持不变（1–21），上表按类别重新组织，编号为目录内序号。
 
 ---
 
@@ -1099,3 +1113,75 @@ pip install -r vivid-figures-skill/requirements.txt
 - 已有图与绘图源码：调整颜色、文字、间距或布局，保留原模板设计
 
 > 说明：本 skill 由 yjz211 维护（约 433 stars / 29 forks），**仅限个人、非商业使用**，未经书面许可禁止二次开发及商业使用；项目配置使用 `.vivid/` 目录。
+
+---
+
+## 21. FigGenie-paper-diagram-skill（顶会风格论文图）
+
+来源仓库：`https://github.com/Sleepy-Avacado/FigGenie-paper-diagram-skill`
+
+一句话定位：**无痛画顶会风格论文图**——生成可直接投稿的矢量图（SVG、裁剪至图形尺寸的 PDF、可编辑 PPTX），支持 TeX 公式与中文标签。
+
+### 安装
+
+**方式一：AI agent 自动安装（最简）**，把仓库 URL 丢给你的 agent：
+
+```text
+Install this skill and set up its dependencies:
+https://github.com/Sleepy-Avacado/FigGenie-paper-diagram-skill
+```
+
+**方式二：Claude Code 插件市场：**
+
+```bash
+/plugin marketplace add Sleepy-Avacado/FigGenie-paper-diagram-skill
+/plugin install figgenie@figgenie
+```
+
+**方式三：Codex 及其他 agent 手动安装：**
+
+```bash
+git clone https://github.com/Sleepy-Avacado/FigGenie-paper-diagram-skill.git
+mkdir -p ~/.agents/skills
+ln -s "$PWD/FigGenie-paper-diagram-skill/skills/figgenie-paper-diagram" ~/.agents/skills/figgenie-paper-diagram
+# 旧版 Codex 从 ~/.codex/skills 读取
+```
+
+**依赖**（Python 3 + 无头 Chromium）：
+
+```bash
+pip install lxml pillow playwright fonttools
+playwright install chromium
+# 可选：Node.js 18+（TeX 公式，MathJax 首次使用自动安装）
+# 可选：pip install python-pptx（PPTX 导出）
+```
+
+### 核心能力
+
+| 能力 | 说明 |
+| :--- | :--- |
+| 基于真实图表学习 | 规则来自 2,041 张顶会论文图的人工标注测量，而非个人审美 |
+| 按印刷尺寸绘制 | 以点为单位针对 240 pt 栏宽工作，保证标签在论文中可读 |
+| 内置 Linter | 在无头浏览器中测量每个框，agent 交付前查看渲染结果自检 |
+| 架构图 | 20 个布局模板（蒸馏自 1,113 篇系统会议论文） |
+| 机制图 | 5 个家族（对比、演化、逻辑、流程演示、解剖），含真实数值示例 |
+| AI 论文 Figure 1 | 8 种类型，按子领域惯例绘制，可自选示例 |
+| 输出格式 | 字体嵌入、元素全命名的 SVG；LaTeX 可用 PDF；PNG 预览；caption 草稿；按需可编辑 PPTX（每个图元对应原生形状与活动文本） |
+| 内容支持 | 矢量 TeX 公式、中文等 CJK 标签、3,851 个部件的图标库、位图（截图/照片） |
+| 工作流 | 绘制前先写简报；每次编辑后 lint + 视觉自检；自然语言描述修改；可对现有图批评或重绘 |
+
+### 使用场景（简要）
+
+- 系统方向（OSDI/NSDI/SOSP/ASPLOS）论文架构图与机制图
+- AI 方向（ICLR/ICML/NeurIPS/CVPR/ACL/AAAI）论文 Figure 1 / 总览图
+- 需要相机就绪（camera-ready）矢量图且要求在 Illustrator / PowerPoint 中继续编辑
+- 含 TeX 公式与中文标签的出版级示意图
+
+示例提示词：
+
+```text
+Use figgenie-paper-diagram to draw a system architecture figure for my OSDI submission.
+Use FigGenie 给我的 NeurIPS 论文画一张 Figure 1 总览图，含 TeX 公式。
+```
+
+> 说明：本 skill 由 Sleepy-Avacado 维护，MIT License（不含论文图表与捆绑字体），约 221 stars；学习语料覆盖 2023–2026 年顶会论文（系统会议 12,577 张图表索引 + AI 会议 3,528 张 Figure 1）。
